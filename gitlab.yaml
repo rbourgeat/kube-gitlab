@@ -40,7 +40,7 @@ kind: Service
 metadata:
   name: gitlab
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 80
@@ -52,3 +52,17 @@ spec:
     name: ssh
   selector:
     app: gitlab
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gitlab-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gitlab
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

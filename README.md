@@ -1,6 +1,6 @@
 # GitLab Kubernetes Deployment
 
-This project sets up a GitLab instance on Kubernetes using a `Makefile` to automate the deployment process. The setup includes Redis, PostgreSQL, and GitLab, configured to run within a Kubernetes cluster.
+This project sets up a GitLab instance on Kubernetes using a `Makefile` to automate the deployment process. The setup includes Redis, PostgreSQL, and GitLab, configured to run within a Kubernetes cluster. Additionally, the deployment utilizes a LoadBalancer for **traffic distribution** and implements GitLab autoscaling for efficient resource utilization.
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ This project sets up a GitLab instance on Kubernetes using a `Makefile` to autom
 - `kubectl` installed and configured
 - `make` installed
 
-## Up/Down/Clean the App
+## Commands
 
 - Run the following command to set up all components:
 
@@ -33,6 +33,14 @@ make down
 ```sh
 
 make logs
+
+```
+
+- Check Persistent Volumes with:
+
+```sh
+
+make pvs
 
 ```
 
