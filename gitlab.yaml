@@ -1,0 +1,54 @@
+# gitlab.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: sameersbn/gitlab:17.0.0
+        envFrom:
+        - configMapRef:
+            name: gitlab-config
+        - secretRef:
+            name: gitlab-secrets
+        volumeMounts:
+        - name: gitlab-storage
+          mountPath: /home/git/data
+        ports:
+        - containerPort: 80
+          name: http
+        - containerPort: 22
+          name: ssh
+      volumes:
+      - name: gitlab-storage
+        persistentVolumeClaim:
+          claimName: gitlab-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+    name: http
+  - port: 22
+    targetPort: 22
+    nodePort: 30022
+    name: ssh
+  selector:
+    app: gitlab

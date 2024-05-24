@@ -1,0 +1,57 @@
+# configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-config
+data:
+  DB_USER: gitlab
+  DB_NAME: gitlabhq_production
+  DB_EXTENSION: pg_trgm,btree_gist
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  TZ: Asia/Kolkata
+  GITLAB_TIMEZONE: Kolkata
+  GITLAB_HTTPS: "false"
+  SSL_SELF_SIGNED: "false"
+  GITLAB_HOST: localhost
+  GITLAB_PORT: "10080"
+  GITLAB_SSH_PORT: "10022"
+  GITLAB_RELATIVE_URL_ROOT: ""
+  GITLAB_NOTIFY_ON_BROKEN_BUILDS: "true"
+  GITLAB_NOTIFY_PUSHER: "false"
+  GITLAB_EMAIL: notifications@example.com
+  GITLAB_EMAIL_REPLY_TO: noreply@example.com
+  GITLAB_INCOMING_EMAIL_ADDRESS: reply@example.com
+  GITLAB_BACKUP_SCHEDULE: daily
+  GITLAB_BACKUP_TIME: "01:00"
+  SMTP_ENABLED: "false"
+  SMTP_DOMAIN: www.example.com
+  SMTP_HOST: smtp.gmail.com
+  SMTP_PORT: "587"
+  SMTP_STARTTLS: "true"
+  SMTP_AUTHENTICATION: login
+  IMAP_ENABLED: "false"
+  IMAP_HOST: imap.gmail.com
+  IMAP_PORT: "993"
+  IMAP_SSL: "true"
+  IMAP_STARTTLS: "false"
+  OAUTH_ENABLED: "false"
+  OAUTH_BLOCK_AUTO_CREATED_USERS: "true"
+  OAUTH_AUTO_LINK_LDAP_USER: "false"
+  OAUTH_AUTO_LINK_SAML_USER: "false"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-secrets
+type: Opaque
+stringData:
+  DB_PASS: password
+  GITLAB_SECRETS_DB_KEY_BASE: long-and-random-alphanumeric-string
+  GITLAB_SECRETS_SECRET_KEY_BASE: long-and-random-alphanumeric-string
+  GITLAB_SECRETS_OTP_KEY_BASE: long-and-random-alphanumeric-string
+  SMTP_USER: mailer@example.com
+  SMTP_PASS: password
+  IMAP_USER: mailer@example.com
+  IMAP_PASS: password
