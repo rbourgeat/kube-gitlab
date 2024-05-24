@@ -8,18 +8,9 @@ This project sets up a GitLab instance on Kubernetes using a `Makefile` to autom
 - `kubectl` installed and configured
 - `make` installed
 
-## Files
+## Up/Down/Clean the App
 
-- `pv-pvc.yaml`: Persistent Volumes and Persistent Volume Claims definitions.
-- `configmap.yaml`: ConfigMap and Secrets for environment variables and sensitive data.
-- `redis.yaml`: Deployment and Service definition for Redis.
-- `postgresql.yaml`: Deployment and Service definition for PostgreSQL.
-- `gitlab.yaml`: Deployment and Service definition for GitLab.
-- `Makefile`: Automation script to manage the Kubernetes resources.
-
-## Deploy the Application
-
-Run the following command to set up all components:
+- Run the following command to set up all components:
 
 ```sh
 
@@ -27,10 +18,28 @@ make
 
 ```
 
-And stop with:
+Now open http://localhost:30080
+
+- Stop with:
 
 ```sh
 
 make down
+
+```
+
+- Log with:
+
+```sh
+
+make logs
+
+```
+
+- Delete pvcs with:
+
+```sh
+
+make clean
 
 ```
